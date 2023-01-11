@@ -1,0 +1,18 @@
+{
+    "dev": {
+        "driver": "pg",
+        "host": "127.0.0.1",
+        "port": 5432,
+        "database": "frontstore",
+        "user": "frontstoreUser",
+        "password": "1234"
+    },
+    "test": {
+        "driver": "pg",
+        "host": "127.0.0.1",
+        "port": 5433,
+        "database": "storefront",
+        "user": "storefrontUser",
+        "password": "1234"
+    }
+}
