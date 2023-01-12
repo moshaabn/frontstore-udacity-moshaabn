@@ -27,9 +27,12 @@ const create = async (req: Request, res: Response) => {
             res.send("Some required parameters are missing! eg. :firstname, :lastname, :username, :password")
             return false
         }
-
-        const user: User = await UserStoreInstance.create({ first_name, last_name, user_name, password })
-
+        const user: User = await UserStoreInstance.create({ 
+            first_name, 
+            last_name, 
+            user_name, 
+            password 
+        })
         res.json(getTokenByUser(user))
     } catch (e) {
         res.status(400)
@@ -67,9 +70,7 @@ const update = async (req: Request, res: Response) => {
             res.send("Some required parameters are missing! eg. :first_name, :last_name, :id")
             return false
         }
-
         const user: User = await UserStoreInstance.update(id, { first_name, last_name })
-
         res.json(user)
     } catch (e) {
         res.status(400)
@@ -83,13 +84,13 @@ const deleteUser = async (req: Request, res: Response) => {
 
         if (id === undefined) {
             res.status(400)
-            res.send("Missing required parameter :id.")
+            res.send("id required.")
             return false
         }
 
         await UserStoreInstance.deleteUser(id)
 
-        res.send(`User with id ${id} successfully deleted.`)
+        res.send(`User deleted.`)
     } catch (e) {
         res.status(400)
         res.json(e)

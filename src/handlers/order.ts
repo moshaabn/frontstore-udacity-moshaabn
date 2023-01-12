@@ -2,11 +2,11 @@ import { Application, Request, Response } from "express"
 import { Order, OrderProduct, OrderStore } from "../models/orderModel"
 import { checkAuthHeader } from "./auth"
 
-const OrderStoreInstance = new OrderStore()
+const orderStore = new OrderStore()
 
 const index = async (req: Request, res: Response) => {
     try {
-        const orders: Order[] = await OrderStoreInstance.index()
+        const orders: Order[] = await orderStore.index()
 
         res.json(orders)
     } catch (e) {
@@ -27,7 +27,7 @@ const create = async (req: Request, res: Response) => {
             return false
         }
 
-        const order: Order = await OrderStoreInstance.create({ products, status, user_id })
+        const order: Order = await orderStore.create({ products, status, user_id })
 
         res.json(order)
     } catch (e) {
@@ -46,7 +46,7 @@ const read = async (req: Request, res: Response) => {
             return false
         }
 
-        const order: Order = await OrderStoreInstance.read(id)
+        const order: Order = await orderStore.read(id)
 
         res.json(order)
     } catch (e) {
@@ -68,7 +68,7 @@ const update = async (req: Request, res: Response) => {
             return false
         }
 
-        const order: Order = await OrderStoreInstance.update(id, { products, status, user_id })
+        const order: Order = await orderStore.update(id, { products, status, user_id })
 
         res.json(order)
     } catch (e) {
@@ -87,7 +87,7 @@ const deleteOrder = async (req: Request, res: Response) => {
             return false
         }
 
-        await OrderStoreInstance.deleteOrder(id)
+        await orderStore.deleteOrder(id)
 
         res.send(`Order with id ${id} successfully deleted.`)
     } catch (e) {

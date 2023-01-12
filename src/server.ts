@@ -7,14 +7,8 @@ import productRoutes from "./handlers/product"
 import orderRoutes from "./handlers/order"
 
 const app: Application = express()
-
-let port: number = 3000
-
-if (process.env.ENV === "test") {
-    port = 3001
-}
-
-const address: string = `127.0.0.1:${port}`
+let port: number = process.env.ENV === "test"? 3001 :3000
+const ip_address: string = `127.0.0.1:${port}`
 
 app.use(bodyParser.json())
 
@@ -27,7 +21,7 @@ productRoutes(app)
 orderRoutes(app)
 
 app.listen(port, () => {
-    console.info(`Starting on: http://${address}`)
+    console.info(`Starting on: http://${ip_address}`)
 })
 
 export default app

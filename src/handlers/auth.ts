@@ -8,14 +8,12 @@ export function getTokenByUser(user: User) {
     return jwt.sign({ user }, SECRET)
 }
 
-export function checkAuthHeader(req: Request, res: Response, next: NextFunction): void | boolean {
+export function checkAuthHeader(req: Request, res: Response, next: NextFunction):( void | boolean) {
     if (!req.headers.authorization) {
         res.status(401)
-        res.json("Access denied, invalid token")
-
+        res.json("access denied")
         return false
     }
-
     try {
         const token = req.headers.authorization.split(" ")[1]
 
@@ -24,10 +22,8 @@ export function checkAuthHeader(req: Request, res: Response, next: NextFunction)
         next()
     } catch (err) {
         console.error(err)
-
         res.status(401)
-        res.json("Access denied, invalid token")
-
+        res.json("access denied")
         return false
     }
 }

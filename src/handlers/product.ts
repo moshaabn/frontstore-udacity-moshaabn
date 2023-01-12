@@ -2,11 +2,11 @@ import { Application, Request, Response } from "express"
 import { Product, ProductStore } from "../models/productModel"
 import { checkAuthHeader } from "./auth"
 
-const ProductStoreInstance = new ProductStore()
+const productStore = new ProductStore()
 
-const index = async (req: Request, res: Response) => {
+const index = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
-        const products: Product[] = await ProductStoreInstance.index()
+        const products: Product[] = await productStore.index()
 
         res.json(products)
     } catch (e) {
@@ -15,18 +15,18 @@ const index = async (req: Request, res: Response) => {
     }
 }
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
         const name = req.body.name as unknown as string
         const price = req.body.price as unknown as number
 
         if (name === undefined || price === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :name, :price")
+            res.send("parameters are missing!")
             return false
         }
 
-        const product: Product = await ProductStoreInstance.create({ name, price })
+        const product: Product = await productStore.create({ name, price })
 
         res.json(product)
     } catch (e) {
@@ -35,7 +35,7 @@ const create = async (req: Request, res: Response) => {
     }
 }
 
-const read = async (req: Request, res: Response) => {
+const read = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
         const id = req.params.id as unknown as number
 
@@ -45,7 +45,7 @@ const read = async (req: Request, res: Response) => {
             return false
         }
 
-        const product: Product = await ProductStoreInstance.read(id)
+        const product: Product = await productStore.read(id)
 
         res.json(product)
     } catch (e) {
@@ -54,7 +54,7 @@ const read = async (req: Request, res: Response) => {
     }
 }
 
-const update = async (req: Request, res: Response) => {
+const update = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
         const id = req.params.id as unknown as number
         const name = req.body.name as unknown as string
@@ -66,7 +66,7 @@ const update = async (req: Request, res: Response) => {
             return false
         }
 
-        const product: Product = await ProductStoreInstance.update(id, { name, price })
+        const product: Product = await productStore.update(id, { name, price })
 
         res.json(product)
     } catch (e) {
@@ -75,17 +75,17 @@ const update = async (req: Request, res: Response) => {
     }
 }
 
-const deleteProduct = async (req: Request, res: Response) => {
+const deleteProduct = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
         const id = req.params.id as unknown as number
 
         if (id === undefined) {
             res.status(400)
-            res.send("Missing required parameter :id.")
+            res.send("id is required.")
             return false
         }
 
-        await ProductStoreInstance.deleteProduct(id)
+        await productStore.deleteProduct(id)
 
         res.send(`Product with id ${id} successfully deleted.`)
     } catch (e) {
