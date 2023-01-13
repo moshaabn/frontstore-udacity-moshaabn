@@ -5,38 +5,48 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index [GET] /products 
+- Show [GET] /products/:id
+- Create [POST] (auth token required) /products
+- update [POST] (auth token required) /products/:id 
+- delete [POST] (auth token required) /products/:id 
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] [GET] /users 
+- Show [token required] [GET] /users/:id
+- Create N[token required] [POST] /users/create
+- Update [token required] [PUT] /users/:id
+- Delete [token required] [DELETE] /users/:id
+- Login [token required] [POST] /users/login
+
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Index [GET] /orders  [token required]
+- Create [POST] /orders  [token required]
+- Show [GET] /orders/:id  [token required]
+- Update [PUT] /orders/:id  [token required]
+- Delete [DELETE] /orders/:id  [token required]
 
 ## Data Shapes
 #### Product
 -  id
 - name
 - price
-- [OPTIONAL] category
 
 #### User
 - id
-- firstName
-- lastName
-- password
+- user_name
+- first_name
+- last_name
+- password_digest
 
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+#### OrderProducts
+-order_id 
+-product_id
+-quantity
 

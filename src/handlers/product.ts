@@ -7,7 +7,6 @@ const productStore = new ProductStore()
 const index = async (req: Request, res: Response): Promise<void | boolean> => {
     try {
         const products: Product[] = await productStore.index()
-
         res.json(products)
     } catch (e) {
         res.status(400)
@@ -96,7 +95,7 @@ const deleteProduct = async (req: Request, res: Response): Promise<void | boolea
 
 export default function productRoutes(app: Application) {
     app.get("/products", index)
-    app.post("/products/create", checkAuthHeader, create)
+    app.post("/products", checkAuthHeader, create)
     app.get("/products/:id", read)
     app.put("/products/:id", checkAuthHeader, update)
     app.delete("/products/:id", checkAuthHeader, deleteProduct)
