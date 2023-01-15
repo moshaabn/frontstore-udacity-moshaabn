@@ -1,8 +1,8 @@
 CREATE TABLE users (
   id              SERIAL PRIMARY KEY,
-  username        VARCHAR(250) NOT NULL,
-  firstname       VARCHAR(250) NOT NULL,
-  lastname        VARCHAR(250) NOT NULL,
+  user_name        VARCHAR(250) NOT NULL,
+  first_name       VARCHAR(250) NOT NULL,
+  last_name        VARCHAR(250) NOT NULL,
   password_digest VARCHAR(250) NOT NULL
 );
 CREATE TABLE products (
@@ -22,3 +22,6 @@ CREATE TABLE order_products (
   product_id INTEGER NOT NULL REFERENCES products (id),
   quantity   INTEGER NOT NULL
 );
+-- CREATE ROLE storefrontUser superuser;
+-- GRANT USAGE ON SCHEMA public TO storefrontUser;  
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO storefrontUser;

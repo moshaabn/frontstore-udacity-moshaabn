@@ -17,14 +17,14 @@ const index = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
     try {
-        const first_name = req.body.firstname as unknown as string
-        const last_name = req.body.lastname as unknown as string
-        const user_name = req.body.username as unknown as string
+        const first_name = req.body.first_name as unknown as string
+        const last_name = req.body.last_name as unknown as string
+        const user_name = req.body.user_name as unknown as string
         const password = req.body.password as unknown as string
 
         if (first_name === undefined || last_name === undefined || user_name === undefined || password === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :firstname, :lastname, :username, :password")
+            res.send("Some required parameters are missing")
             return false
         }
         const user: User = await UserStoreInstance.create({ 
@@ -35,6 +35,7 @@ const create = async (req: Request, res: Response) => {
         })
         res.json(getTokenByUser(user))
     } catch (e) {
+        console.log(e)
         res.status(400)
         res.json(e)
     }

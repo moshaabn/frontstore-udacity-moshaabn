@@ -5,7 +5,8 @@ import { NextFunction, Request, Response } from "express"
 const SECRET = process.env.SECRET as Secret
 
 export function getTokenByUser(user: User) {
-    return jwt.sign({ user }, SECRET)
+    const token = jwt.sign({ user }, SECRET);
+    return token
 }
 
 export function checkAuthHeader(req: Request, res: Response, next: NextFunction):( void | boolean) {

@@ -4,7 +4,7 @@
         "host": "127.0.0.1",
         "port": 5432,
         "database": "frontstore",
-        "user": "frontstoreUser",
+        "user": "frontstoreuser",
         "password": "1234"
     },
     "test": {
@@ -12,7 +12,7 @@
         "host": "127.0.0.1",
         "port": 5433,
         "database": "storefront",
-        "user": "storefrontUser",
+        "user": "storefrontuser",
         "password": "1234"
     }
 }

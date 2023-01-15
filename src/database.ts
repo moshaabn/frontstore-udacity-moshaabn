@@ -11,6 +11,7 @@ const config: ClientConfig = {
     password: process.env.POSTGRES_PASSWORD
 }
 
+console.log(process.env.Env)
 if (process.env.ENV === "test") {
     config.port = process.env.POSTGRES_PORT_TEST as unknown as number
 }

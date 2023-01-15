@@ -20,10 +20,10 @@ const create = async (req: Request, res: Response) => {
         let products = req.body.products as unknown as OrderProduct[]
         const status = req.body.status as unknown as boolean
         const user_id = req.body.user_id as unknown as number
-
+        
         if (products === undefined || status === undefined || user_id === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :products, :status, :user_id")
+            res.send("Some required parameters are missing")
             return false
         }
 
@@ -64,7 +64,7 @@ const update = async (req: Request, res: Response) => {
 
         if (products === undefined || status === undefined || user_id === undefined || id === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :products, :status, :user_id, :id")
+            res.send("Some required parameters are missing")
             return false
         }
 
