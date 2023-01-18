@@ -35,7 +35,6 @@ const create = async (req: Request, res: Response) => {
         })
         res.json(getTokenByUser(user))
     } catch (e) {
-        console.log(e)
         res.status(400)
         res.json(e)
     }
@@ -61,19 +60,23 @@ const read = async (req: Request, res: Response) => {
 }
 
 const update = async (req: Request, res: Response) => {
+    console.log(req.body)
     try {
         const id = req.params.id as unknown as number
         const first_name = req.body.first_name as unknown as string
         const last_name = req.body.last_name as unknown as string
+        console.log(id, first_name, last_name)
 
         if (first_name === undefined || last_name === undefined || id === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :first_name, :last_name, :id")
+            res.send("Some required parameters are missing!")
             return false
         }
         const user: User = await UserStoreInstance.update(id, { first_name, last_name })
+        res.status(200)
         res.json(user)
     } catch (e) {
+        console.log(e)
         res.status(400)
         res.json(e)
     }
@@ -100,20 +103,20 @@ const deleteUser = async (req: Request, res: Response) => {
 
 const authenticate = async (req: Request, res: Response) => {
     try {
-        const username = req.body.username as unknown as string
+        const user_name = req.body.user_name as unknown as string
         const password = req.body.password as unknown as string
-
-        if (username === undefined || password === undefined) {
+        
+        if (user_name === undefined || password === undefined) {
             res.status(400)
-            res.send("Some required parameters are missing! eg. :username, :password")
+            res.send("Some required parameters are missing")
             return false
         }
-
-        const user: User | null = await UserStoreInstance.authenticate(username, password)
-
+        
+        const user: User | null = await UserStoreInstance.authenticate(user_name, password)
+        
         if (user === null) {
             res.status(401)
-            res.send(`Wrong password for user ${username}.`)
+            res.send(`Wrong password for user ${user_name}.`)
 
             return false
         }

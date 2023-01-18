@@ -35,7 +35,6 @@ describe("Order Handler", () => {
 
         const { body: productBody } = await request.post("/products").set("Authorization", "bearer " + token).send(productData)
         product_id = productBody.id
-        console.log(productBody)
         order = {
             products: [{
                 product_id,
@@ -59,7 +58,6 @@ describe("Order Handler", () => {
             .then((res: any) => {
                 const { body, status } = res
 
-                console.log(order, body, status)
 
                 expect(status).toBe(200)
 
@@ -80,7 +78,6 @@ describe("Order Handler", () => {
     })
 
     it("show single order", (done) => {
-        console.log(order_id)
         request
             .get(`/orders/${order_id}`)
             .set("Authorization", "bearer " + token)
@@ -95,7 +92,6 @@ describe("Order Handler", () => {
             ...order,
             status: false
         }
-        console.log(newOrder)
 
         request
             .put(`/orders/${order_id}`)

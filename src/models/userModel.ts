@@ -62,18 +62,18 @@ export class UserStore {
     }
 
     async update(id: number, newUserData: UserData): Promise<User> {
-        const { first_name: firstname, last_name: lastname } = newUserData
+        const { first_name: first_name, last_name: last_name } = newUserData
 
         try {
-            const sql = "UPDATE users SET firstname = $1, lastname = $2 WHERE id = $3 RETURNING *"
+            const sql = "UPDATE users SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING *"
             const connection = await Client.connect()
-            const { rows } = await connection.query(sql, [firstname, lastname, id])
+            const { rows } = await connection.query(sql, [first_name, last_name, id])
 
             connection.release()
 
             return rows[0]
         } catch (err) {
-            throw new Error(`Could not update user ${firstname} ${lastname}. ${err}`)
+            throw new Error(`Could not update user ${first_name} ${last_name}. ${err}`)
         }
     }
 
@@ -92,11 +92,11 @@ export class UserStore {
         }
     }
 
-    async authenticate(username: string, password: string): Promise<User | null> {
+    async authenticate(user_name: string, password: string): Promise<User | null> {
         try {
-            const sql = "SELECT * FROM users WHERE username=($1)"
+            const sql = "SELECT * FROM users WHERE user_name=($1)"
             const connection = await Client.connect()
-            const { rows } = await connection.query(sql, [username])
+            const { rows } = await connection.query(sql, [user_name])
 
             if (rows.length > 0) {
                 const user = rows[0]
@@ -110,7 +110,7 @@ export class UserStore {
 
             return null
         } catch (err) {
-            throw new Error(`Could not find user ${username}. ${err}`)
+            throw new Error(`Could not find user ${user_name}. ${err}`)
         }
     }
 }

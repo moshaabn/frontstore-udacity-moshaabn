@@ -2,7 +2,7 @@
 
 
 ## Prepare env
-- add a `.env` file in the root directory and add username and password identical 
+- add a `.env` file in the root directory and add user_name and password identical 
 - to what is in database.json
 ```
 POSTGRES_HOST=127.0.0.1

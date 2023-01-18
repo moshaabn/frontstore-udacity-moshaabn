@@ -17,42 +17,38 @@ describe("User Handler", () => {
 
   let token: string, userId: number = 1
 
-  it("should require authorization on every endpoint", (done) => {
-    request
+  it("should require authorization on every endpoint", async () => {
+    await request
     .get("/users")
     .then((res) => {
       expect(res.status).toBe(401)
-      done()
     })
 
-    request
+    await request
     .get(`/users/${userId}`)
     .then((res) => {
       expect(res.status).toBe(401)
-      done()
     })
 
-    request
+    await request
     .put(`/users/${userId}`)
     .send({
-      firstName: userData.first_name + "test2",
-      lastName: userData.last_name + "test2"
+      first_name: userData.first_name + "test2",
+      last_name: userData.last_name + "test2"
     })
     .then((res) => {
       expect(res.status).toBe(401)
-      done()
     })
 
-    request
+    await request
     .delete(`/users/${userId}`)
     .then((res) => {
       expect(res.status).toBe(401)
-      done()
     })
   })
 
-  it("gets the create endpoint", (done) => {
-    request
+  it("gets the create endpoint", async () => {
+    await request
     .post("/users/create")
     .send(userData)
     .then((res) => {
@@ -64,49 +60,45 @@ describe("User Handler", () => {
       userId = user.id
 
       expect(status).toBe(200)
-      done()
     })
   })
 
-  it("gets the index endpoint", (done) => {
-    request
+  it("gets the index endpoint", async () => {
+    await request
     .get("/users")
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(200)
-      done()
     })
   })
 
-  it("gets the read endpoint", (done) => {
-    request
+  it("gets the read endpoint", async () => {
+    await request
     .get(`/users/${userId}`)
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(200)
-      done()
     })
   })
 
-  it("gets the update endpoint", (done) => {
+  it("gets the update endpoint", async () => {
     const newUserData: AuthUser = {
       ...userData,
       first_name: "test3",
       last_name: "test3"
     }
 
-    request
+    await request
     .put(`/users/${userId}`)
     .send(newUserData)
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(200)
-      done()
     })
   })
 
-  it("gets the auth endpoint", (done) => {
-    request
+  it("gets the auth endpoint", async () => {
+    await request
     .post("/users/auth")
     .send({
       user_name: userData.user_name,
@@ -115,12 +107,11 @@ describe("User Handler", () => {
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(200)
-      done()
     })
   })
 
-  it("gets the auth endpoint with wrong password", (done) => {
-    request
+  it("gets the auth endpoint with wrong password", async () => {
+    await request
     .post("/users/auth")
     .send({
       user_name: userData.user_name,
@@ -129,17 +120,15 @@ describe("User Handler", () => {
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(401)
-      done()
     })
   })
 
-  it("gets the delete endpoint", (done) => {
-    request
+  it("gets the delete endpoint", async () => {
+   await request
     .delete(`/users/${userId}`)
     .set("Authorization", "bearer " + token)
     .then((res) => {
       expect(res.status).toBe(200)
-      done()
     })
   })
 })
