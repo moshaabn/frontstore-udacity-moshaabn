@@ -14,7 +14,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Users
 - Index [token required] [GET] /users 
 - Show [token required] [GET] /users/:id
-- Create N[token required] [POST] /users/create
+- Create [token required] [POST] /users/create
 - Update [token required] [PUT] /users/:id
 - Delete [token required] [DELETE] /users/:id
 - Login [token required] [POST] /users/login
@@ -34,19 +34,19 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 
 #### User
-- id
-- user_name
-- first_name
-- last_name
-- password_digest
+- id : integer
+- user_name : string
+- first_name: string
+- last_name: string
+- password_digest: string 
 
 #### Orders
-- id
-- user_id
-- status of order (active or complete)
+- id : integer incremental
+- user_id : string
+- status of order (active or complete) : string
 
 #### OrderProducts
--order_id 
--product_id
--quantity
+-order_id : integer foreign key
+-product_id : integer foreign key 
+-quantity : integer
 

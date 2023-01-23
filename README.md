@@ -17,6 +17,7 @@ BCRYPT_PASSWORD=MYSECRET
 ```
 
 ## database.json prepare
+## to setup a database create database.json and put the following info to it
 ``` json
 {
     "dev": {
@@ -37,8 +38,36 @@ BCRYPT_PASSWORD=MYSECRET
     }
 }
 ```
+## create docker-compose.yml and put the following info to it 
+``` yml
+version: '3.9'
 
-## Setup app
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  postgres-test:
+    image: postgres
+    ports:
+      - '5433:5432'
+    env_file:
+      - .env
+
+volumes:
+  postgres:
+```
+
+## backend will run on port 3000
+## testing backend will run on port 3001
+## database port on docker container for postges on port 5432 for development and 5433 for testing
+
+## Installation instruction
 #### ``` docker-compose up ``` to start the docker container for the database
 #### ``` npm install ```  to install all dependencies for the app
 #### ``` npm run db-up ``` to set up the database 
